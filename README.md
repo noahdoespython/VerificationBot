@@ -2,11 +2,12 @@
 
 Free verification bot for all (With buttons).
 
-# Getting Started
+## Getting Started
 
 To get a local copy up follow this.
 
-##Prequisites
+### Prequisites
+
 
 You will need to install python here: [Install](https://www.python.org/ftp/python/3.10.3/python-3.10.3-amd64.exe) or here:
 [Website](https://www.python.org/)
