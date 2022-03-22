@@ -60,6 +60,14 @@ class V(nextcord.ui.View):
             robloxUser = data["robloxUsername"]
             robloxId = data["robloxId"]
             await inter.response.send_message(f'Welcome, {robloxUser} ({robloxId}) to {inter.guild.name}.',ephemeral=True)
+            role = nextcord.utils.get(inter.guild.roles,name=VerifiedRole)
+            await inter.user.edit(nick=robloxUser)
+            if nextcord.errors.Forbidden:
+                await inter.edit_original_message('Could not name you, could you please give me a higher role?')
+            if role in inter.user.roles:
+                await inter.edit_original_message(f'Error: You already have this role..')
+            else:
+                await inter.user.add_roles(role)
         elif status == "error":
             await inter.response.send_message(f'Error 500 - You could not be verified with Rover.',ephemeral=True)
         self.value = True
@@ -76,8 +84,14 @@ class V(nextcord.ui.View):
             data2 = body2.json()
             robloxUser = data2["name"]
             await inter.response.send_message(f'Welcome, {robloxUser} ({robloxId}) to {inter.guild.name}.',ephemeral=True)
-            role = nextcord.utils.get(inter.guild.roles,VerifiedRole)
-            inter.user.add_roles(role)
+            role = nextcord.utils.get(inter.guild.roles,name=VerifiedRole)
+            await inter.user.edit(nick=robloxUser)
+            if nextcord.errors.Forbidden:
+                await inter.edit_original_message('Could not name you, could you please give me a higher role?')
+            if role in inter.user.roles:
+                await inter.edit_original_message(f'Error: You already have this role..')
+            else:
+                await inter.user.add_roles(role)
         elif status == "error":
             await inter.response.send_message(f'Error 500 - You could not be verified with Bloxlink.',ephemeral=True)
         self.value = True
